@@ -330,8 +330,7 @@ footer{max-width:1080px; margin:80px auto 0; padding:0 24px 66px; color:var(--mu
 .brand.c .band-jump{color:#8fdcb0; border-color:rgba(143,220,176,.4)}
 .block[id$="-comments"]{scroll-margin-top:60px}
 
-.lb figcaption a{font-size:12.5px; font-weight:600; color:#ffb27d; text-decoration:none; border-bottom:1px solid rgba(255,178,125,.4)}
-.lb figcaption em{margin-left:auto} .lb img{cursor:zoom-in}
+.lb figcaption em{margin-left:auto}
 
 /* ===== explainer panel ===== */
 .approach{position:relative; overflow:hidden; background:var(--card); border:1px solid var(--line); border-radius:16px; padding:28px 30px; margin-top:22px; box-shadow:var(--shadow); scroll-margin-top:64px}
@@ -462,7 +461,7 @@ footer{max-width:1080px; margin:80px auto 0; padding:0 24px 66px; color:var(--mu
 </div></div></footer>
 
 <div class="lb" id="lb" hidden><button class="lb-x" aria-label="Close">Close</button><button class="lb-prev" aria-label="Previous">Prev</button><button class="lb-next" aria-label="Next">Next</button>
-<figure><figcaption><span id="lb-pl"></span><b id="lb-kw"></b><em id="lb-ct"></em><a id="lb-open" href="#" target="_blank" rel="noopener">Open original</a></figcaption><div class="lb-stage"><span class="lb-msg lb-wait">Loading capture</span><span class="lb-msg lb-fail">This capture did not load. Refresh the page, or use Open original above.</span><img id="lb-img" alt=""></div></figure></div>
+<figure><figcaption><span id="lb-pl"></span><b id="lb-kw"></b><em id="lb-ct"></em></figcaption><div class="lb-stage"><span class="lb-msg lb-wait">Loading capture</span><span class="lb-msg lb-fail">This capture did not load. Refresh the page and try again.</span><img id="lb-img" alt=""></div></figure></div>
 <script>(function () {
   var tiles = Array.prototype.slice.call(document.querySelectorAll('a[data-kw]'));
   var lb = document.getElementById('lb'), img = document.getElementById('lb-img');
@@ -477,7 +476,6 @@ footer{max-width:1080px; margin:80px auto 0; padding:0 24px 66px; color:var(--mu
     img.onerror = function () { if (img.getAttribute('src')) { lb.classList.remove('loading'); lb.classList.add('failed'); } };
     img.src = src;
     var nx = tiles[(cur + 1) % tiles.length]; if (nx) { new Image().src = nx.getAttribute('href'); }
-    document.getElementById('lb-open').href = t.getAttribute('href');
     img.alt = 'Google results for ' + t.dataset.kw;
     kw.textContent = t.dataset.kw; pl.textContent = t.dataset.pl;
     ct.textContent = (cur + 1) + ' / ' + tiles.length;
