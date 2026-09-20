@@ -345,6 +345,15 @@ footer{max-width:1080px; margin:80px auto 0; padding:0 24px 66px; color:var(--mu
 .approach-close{margin:0; padding-top:18px; border-top:1px solid var(--line); font-size:15px; line-height:1.6; color:#4a4038; max-width:80ch}
 .approach-close strong{color:var(--ink)}
 @media (max-width:760px){ .approach{padding:22px 20px} .approach-lead{font-size:17px} .steps{grid-template-columns:1fr} }
+
+.lb-stage{position:relative; min-height:320px; display:grid; place-items:center; border-radius:12px; background:#111}
+.lb-stage img{position:relative; z-index:1; transition:opacity .2s}
+.lb.loading .lb-stage img,.lb.failed .lb-stage img{opacity:0}
+.lb-msg{position:absolute; inset:0; display:none; place-items:center; text-align:center; padding:20px; color:rgba(255,255,255,.7); font:600 14px/1.5 'Space Grotesk',sans-serif}
+.lb.loading .lb-wait,.lb.failed .lb-fail{display:grid}
+.lb.loading .lb-wait::after{content:""; width:22px; height:22px; margin-left:12px; border-radius:50%; border:2px solid rgba(255,255,255,.25); border-top-color:#ffb27d; animation:lbspin .8s linear infinite}
+.lb.loading .lb-wait{display:flex; justify-content:center; align-items:center}
+@keyframes lbspin{to{transform:rotate(360deg)}}
 </style></head><body>
 
 <header class="hero"><div class="hero-rings"></div><div class="hero-inner">
@@ -453,7 +462,7 @@ footer{max-width:1080px; margin:80px auto 0; padding:0 24px 66px; color:var(--mu
 </div></div></footer>
 
 <div class="lb" id="lb" hidden><button class="lb-x" aria-label="Close">Close</button><button class="lb-prev" aria-label="Previous">Prev</button><button class="lb-next" aria-label="Next">Next</button>
-<figure><figcaption><span id="lb-pl"></span><b id="lb-kw"></b><em id="lb-ct"></em><a id="lb-open" href="#" target="_blank" rel="noopener">Open original</a></figcaption><img id="lb-img" alt=""></figure></div>
+<figure><figcaption><span id="lb-pl"></span><b id="lb-kw"></b><em id="lb-ct"></em><a id="lb-open" href="#" target="_blank" rel="noopener">Open original</a></figcaption><div class="lb-stage"><span class="lb-msg lb-wait">Loading capture</span><span class="lb-msg lb-fail">This capture did not load. Refresh the page, or use Open original above.</span><img id="lb-img" alt=""></div></figure></div>
 <script>(function () {
   var tiles = Array.prototype.slice.call(document.querySelectorAll('a[data-kw]'));
   var lb = document.getElementById('lb'), img = document.getElementById('lb-img');
@@ -462,14 +471,19 @@ footer{max-width:1080px; margin:80px auto 0; padding:0 24px 66px; color:var(--mu
   function show(i) {
     cur = (i + tiles.length) % tiles.length;
     var t = tiles[cur];
-    img.src = t.getAttribute('href');
+    var src = t.getAttribute('href');
+    lb.classList.add('loading'); lb.classList.remove('failed');
+    img.onload = function () { lb.classList.remove('loading'); };
+    img.onerror = function () { if (img.getAttribute('src')) { lb.classList.remove('loading'); lb.classList.add('failed'); } };
+    img.src = src;
+    var nx = tiles[(cur + 1) % tiles.length]; if (nx) { new Image().src = nx.getAttribute('href'); }
     document.getElementById('lb-open').href = t.getAttribute('href');
     img.alt = 'Google results for ' + t.dataset.kw;
     kw.textContent = t.dataset.kw; pl.textContent = t.dataset.pl;
     ct.textContent = (cur + 1) + ' / ' + tiles.length;
     lb.hidden = false; document.body.style.overflow = 'hidden';
   }
-  function close() { lb.hidden = true; img.src = ''; document.body.style.overflow = ''; }
+  function close() { lb.hidden = true; img.removeAttribute('src'); document.body.style.overflow = ''; }
   tiles.forEach(function (t, i) { t.addEventListener('click', function (ev) { ev.preventDefault(); show(i); }); });
   lb.querySelector('.lb-x').addEventListener('click', close);
   lb.querySelector('.lb-prev').addEventListener('click', function () { show(cur - 1); });
