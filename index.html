@@ -54,12 +54,12 @@ h1,h2,h3{font-family:'Space Grotesk','Inter',sans-serif; letter-spacing:-.01em}
 .hero h1 i{font-family:'Instrument Serif',serif; font-weight:400; color:var(--muted); padding:0 .04em}
 .hero h1 .hl{color:var(--accent); border-bottom:6px solid rgba(249,106,22,.30)}
 .claim{font-size:16.5px; line-height:1.55; color:#4a4038; max-width:64ch; margin:0 0 30px}
-.herostats{display:grid; grid-template-columns:repeat(4,1fr); max-width:820px; margin:0 0 26px;
+.herostats{display:grid; grid-template-columns:repeat(6,1fr); max-width:none; margin:0 0 26px;
   background:rgba(255,255,255,.72); border:1px solid #efe2d3; border-radius:20px; backdrop-filter:blur(6px);
   box-shadow:var(--shadow-lg)}
-.herostats div{padding:22px 24px; border-left:1px solid #efe2d3}
+.herostats div{padding:22px 20px; border-left:1px solid #efe2d3}
 .herostats div:first-child{border-left:none}
-.herostats b{display:block; font-family:'Space Grotesk',sans-serif; font-size:clamp(34px,4.6vw,52px); line-height:1; letter-spacing:-.03em}
+.herostats b{display:block; font-family:'Space Grotesk',sans-serif; font-size:clamp(30px,3.6vw,44px); line-height:1; letter-spacing:-.03em}
 .herostats span{display:block; margin-top:8px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--muted)}
 .prepared{display:inline-block; color:#7a6e60; font-size:12.5px; letter-spacing:.04em; margin:0}
 
@@ -263,6 +263,7 @@ footer{max-width:1080px; margin:80px auto 0; padding:0 24px 66px; color:var(--mu
 .lb-x{top:18px; right:22px} .lb-prev{left:14px; top:50%} .lb-next{right:14px; top:50%}
 
 @media (max-width:900px){
+  .herostats{grid-template-columns:repeat(3,1fr)} .herostats div:nth-child(4){border-left:none} .herostats div:nth-child(n+4){border-top:1px solid #efe2d3}
   .metrics{grid-template-columns:repeat(2,1fr)} .duos{grid-template-columns:1fr}
   .band-stats{grid-template-columns:repeat(2,1fr)} .tiles{grid-template-columns:repeat(2,1fr)}
   .explain{grid-template-columns:1fr} .explain>div{border-left:none; border-top:1px solid var(--line)} .explain>div:first-child{border-top:none}
@@ -271,7 +272,7 @@ footer{max-width:1080px; margin:80px auto 0; padding:0 24px 66px; color:var(--mu
 @media (max-width:620px){
   .hero{padding:28px 16px 40px} .wrap{padding:36px 16px 10px} .band-in{padding:40px 16px 0} footer{padding:0 16px 50px}
   .brandrow .for{display:none}
-  .herostats{grid-template-columns:repeat(2,1fr)} .herostats div:nth-child(3){border-left:none} .herostats div:nth-child(n+3){border-top:1px solid #efe2d3}
+  .herostats{grid-template-columns:repeat(2,1fr)} .herostats div:nth-child(odd){border-left:none} .herostats div:nth-child(4){border-left:1px solid #efe2d3} .herostats div:nth-child(n+3){border-top:1px solid #efe2d3}
   .metrics{grid-template-columns:1fr} .duo-grid{grid-template-columns:repeat(2,1fr)}
   .band-stats{grid-template-columns:repeat(2,1fr)} .tiles{grid-template-columns:1fr}
   .card-head{padding:20px 18px} .gallery{padding:18px} .pill{margin-left:0}
@@ -366,6 +367,8 @@ footer{max-width:1080px; margin:80px auto 0; padding:0 24px 66px; color:var(--mu
     <div><b>43</b><span>Comments placed</span></div>
     <div><b>77</b><span>Keywords ranking</span></div>
     <div><b>13</b><span>Subreddits</span></div>
+    <div><b>199</b><span>Total comments under our posts</span></div>
+    <div><b>71</b><span>Total upvotes</span></div>
   </div>
   <p class="prepared">11 Aug to 22 Sep 2026 &nbsp;·&nbsp; Google &nbsp;·&nbsp; United States &nbsp;·&nbsp; Rankings captured 19 Sep 2026</p>
 </div></header>
